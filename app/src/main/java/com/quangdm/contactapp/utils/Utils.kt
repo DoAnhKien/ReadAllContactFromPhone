@@ -5,9 +5,13 @@ import android.view.animation.DecelerateInterpolator
 import android.animation.ValueAnimator
 import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.view.View
+import com.quangdm.contactapp.model.User
 
 
 object Utils {
+
+
+
 
     fun expand(v: View, duration: Int, targetHeight: Int) {
         val prevHeight: Int = v.height

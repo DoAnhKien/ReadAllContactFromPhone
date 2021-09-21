@@ -37,12 +37,12 @@ class UserAdapter(
         holder.binData(items!![position], position)
         holder.itemView.setOnClickListener {
             onClick.onClick(position, items!![position])
-            holder.showHideTheLayout(position, holder)
+//            holder.showHideTheLayout(position, holder)
 
         }
         holder.itemView.setOnLongClickListener {
             onClick.onLongClick(position, items!![position])
-            holder.showHideTheLayout(position, holder)
+//            holder.showHideTheLayout(position, holder)
             true
         }
 
@@ -76,6 +76,11 @@ class UserAdapter(
         return items!![position]
     }
 
+
+    fun clearData() {
+        this.items?.clear()
+
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setNewData(newItems: MutableList<User>) {

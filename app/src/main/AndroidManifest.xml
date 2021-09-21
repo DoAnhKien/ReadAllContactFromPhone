@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ContactApp">
         <activity
+            android:name=".screens.addedit.AddEditActivity"
+            android:exported="true" />
+        <activity
             android:name=".screens.main.MainActivity"
             android:exported="true">
             <intent-filter>
