@@ -8,9 +8,11 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.quangdm.contactapp.R
 import com.quangdm.contactapp.base.BaseActivity
 import com.quangdm.contactapp.databinding.ActivityMainBinding
@@ -55,6 +57,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
                 hasFixedSize()
             }
         }
+
+    }
+
+    private fun setAnimationForRecyclerView(recyclerView: RecyclerView) {
+        val context = recyclerView.context
+        val layoutAnimation =
+            AnimationUtils.loadLayoutAnimation(context, R.anim.layout_fail_down_animation)
+        recyclerView.layoutAnimation = layoutAnimation
+        recyclerView.adapter?.notifyDataSetChanged()
+        recyclerView.scheduleLayoutAnimation()
     }
 
     private fun checkContactPermission() {
@@ -106,6 +118,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
     override fun getDataFromPhone(mData: MutableList<User>) {
         runOnUiThread {
             userAdapter?.setNewData(mData)
+            setAnimationForRecyclerView(binding!!.rvMain)
         }
 
     }

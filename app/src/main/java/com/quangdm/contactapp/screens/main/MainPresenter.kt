@@ -13,7 +13,7 @@ class MainPresenter(private val context: Context, private val mainInterface: Mai
 
 
     @SuppressLint("Range")
-     fun readContact() {
+    fun readContact() {
         GlobalScope.launch {
             val listData = mutableListOf<User>()
             val uri: Uri = ContactsContract.Contacts.CONTENT_URI
@@ -38,7 +38,7 @@ class MainPresenter(private val context: Context, private val mainInterface: Mai
                     if (phoneCursor?.moveToNext()!!) {
                         val phoneNumber =
                             phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                        val user = User(userId, userName, phoneNumber)
+                        val user = User(userId, userName, phoneNumber, false)
                         listData.add(user)
                     }
 

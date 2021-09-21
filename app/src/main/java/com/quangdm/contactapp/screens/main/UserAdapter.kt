@@ -9,12 +9,16 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.quangdm.contactapp.databinding.LayoutItemUserBinding
 import com.quangdm.contactapp.model.User
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import com.quangdm.contactapp.R
+import com.quangdm.contactapp.utils.Utils
+
 
 class UserAdapter(
     var items: MutableList<User>?, private val onClick: OnItemUserOnClick
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
-    private lateinit var layoutItemUserBinding: LayoutItemUserBinding
     private var isSelected = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
@@ -29,14 +33,16 @@ class UserAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         holder.binData(items!![position], position)
         holder.itemView.setOnClickListener {
             onClick.onClick(position, items!![position])
-            holder.showHideTheLayout()
+            holder.showHideTheLayout(position, holder)
+
         }
         holder.itemView.setOnLongClickListener {
             onClick.onLongClick(position, items!![position])
-            holder.showHideTheLayout()
+            holder.showHideTheLayout(position, holder)
             true
         }
 
@@ -51,20 +57,25 @@ class UserAdapter(
             }
         }
 
-        fun showHideTheLayout() {
-            if (isSelected) {
+        fun showHideTheLayout(position: Int, holder: ViewHolder) {
+            if (items!![position].isExpanded) {
                 binding.llDetail.visibility = View.GONE
-                isSelected = false
+                Utils.collapse(binding.llDetail, 1000, 120)
+                items!![position].isExpanded = false
+                notifyItemChanged(position)
                 return
             }
             binding.llDetail.visibility = View.VISIBLE
-            isSelected = true
+            Utils.expand(binding.llDetail, 1000, 120)
+            items!![position].isExpanded = true
+            notifyItemChanged(position)
         }
     }
 
-    fun showDetail() {
-
+    fun getUserAt(position: Int): User {
+        return items!![position]
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     fun setNewData(newItems: MutableList<User>) {

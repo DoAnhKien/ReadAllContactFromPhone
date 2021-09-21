@@ -1,4 +1,4 @@
-package com.example.myapplication.base
+package com.quangdm.contactapp.base
 
 object Const {
     const val VIEW_UNLOCK_USER = "VIEW_UNLOCK_USER"

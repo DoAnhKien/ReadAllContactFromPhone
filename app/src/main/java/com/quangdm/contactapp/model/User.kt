@@ -5,9 +5,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class User(
-    val userId: String,
-    val userName: String,
-    val userPhoneNumber: String,
+    val userId: String = "",
+    val userName: String = "",
+    val userPhoneNumber: String = "",
+    var isExpanded: Boolean = false
 ) : Parcelable {
     constructor() : this(
         "", "", ""
