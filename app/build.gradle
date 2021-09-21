@@ -5,6 +5,8 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-parcelize'
+    id("io.gitlab.arturbosch.detekt").version("1.18.1")
+
 }
 
 android {
@@ -20,12 +22,30 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    detekt {
+        buildUponDefaultConfig = true // preconfigure defaults
+        allRules = false // activate all available (even unstable) rules.
+        config = files("$projectDir/config/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+        baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
+
+        reports {
+            html.enabled = true // observe findings in your browser with structure and code snippets
+            xml.enabled = true // checkstyle like format mainly for integrations like Jenkins
+            txt.enabled = true // similar to the console output, contains issue signature to manually edit baseline files
+            sarif.enabled = true // standardized SARIF format (https://sarifweb.azurewebsites.net/) to support integrations with Github Code Scanning
+        }
+    }
+
+
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -109,7 +129,16 @@ dependencies {
 
     //
     implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'
+
+    // deteckt
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.5.31"
+
+
+
 }
+
+
+
 
 kapt {
     correctErrorTypes true
