@@ -15,7 +15,7 @@ import com.quangdm.contactapp.base.*
 import com.quangdm.contactapp.databinding.ActivityMainBinding
 import com.quangdm.contactapp.model.User
 import com.quangdm.contactapp.utils.Const
-import kotlinx.coroutines.DelicateCoroutinesApi
+
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, OnItemUserOnClick,
     MainInterface {
@@ -27,7 +27,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
 
     override fun initLayout(): Int = R.layout.activity_main
 
-    @DelicateCoroutinesApi
+
     override fun init() {
         mainPresenter = MainPresenter(this, this)
         checkContactPermission()
@@ -71,7 +71,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
         recyclerView.scheduleLayoutAnimation()
     }
 
-    @DelicateCoroutinesApi
+
     private fun checkContactPermission() {
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -89,7 +89,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
         }
     }
 
-    @DelicateCoroutinesApi
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

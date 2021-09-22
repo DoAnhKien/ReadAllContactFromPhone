@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import com.quangdm.contactapp.model.User
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 class MainPresenter(private val context: Context, private val mainInterface: MainInterface) {
@@ -27,11 +25,11 @@ class MainPresenter(private val context: Context, private val mainInterface: Mai
         return listData
     }
 
-    @DelicateCoroutinesApi
+
     @SuppressLint("Range")
     fun readContact() {
         getFakeData()
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
 //            val listData = mutableListOf<User>()
 //            val uri: Uri = ContactsContract.Contacts.CONTENT_URI
 //            val sort: String = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
@@ -68,6 +66,7 @@ class MainPresenter(private val context: Context, private val mainInterface: Mai
         var count = 7
         count++
         listData.add(User(count.toString(), "KienDA${count}", "123456", false))
+
         Log.d(TAG, "addContactInToDatabase: ${listData.size}")
     }
 
