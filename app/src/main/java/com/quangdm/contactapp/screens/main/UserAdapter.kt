@@ -3,15 +3,10 @@ package com.quangdm.contactapp.screens.main
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.quangdm.contactapp.databinding.LayoutItemUserBinding
 import com.quangdm.contactapp.model.User
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import com.quangdm.contactapp.R
 import com.quangdm.contactapp.utils.Utils
 
 
@@ -34,39 +29,46 @@ class UserAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.binData(items!![position], position)
+        holder.binData(items!![position])
         holder.itemView.setOnClickListener {
             onClick.onClick(position, items!![position])
-//            holder.showHideTheLayout(position, holder)
+            holder.showHideTheLayout(position)
 
         }
         holder.itemView.setOnLongClickListener {
             onClick.onLongClick(position, items!![position])
-//            holder.showHideTheLayout(position, holder)
+            holder.showHideTheLayout(position)
             true
         }
 
     }
 
+
     inner class ViewHolder(var binding: LayoutItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun binData(user: User, position: Int) {
+        fun binData(user: User) {
             binding.apply {
                 binding.user = user
                 executePendingBindings()
             }
         }
 
-        fun showHideTheLayout(position: Int, holder: ViewHolder) {
+        fun showHideTheLayout(position: Int) {
+            binding.llDetail.measure(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            val height = binding.llDetail.measuredHeight
+
             if (items!![position].isExpanded) {
                 binding.llDetail.visibility = View.GONE
-                Utils.collapse(binding.llDetail, 1000, 120)
+                Utils.collapse(binding.llDetail, 1000, height)
                 items!![position].isExpanded = false
                 notifyItemChanged(position)
                 return
             }
             binding.llDetail.visibility = View.VISIBLE
-            Utils.expand(binding.llDetail, 1000, 120)
+            Utils.expand(binding.llDetail, 1000, height)
             items!![position].isExpanded = true
             notifyItemChanged(position)
         }

@@ -2,15 +2,12 @@ package com.quangdm.contactapp.screens.main
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.net.Uri
-import android.provider.ContactsContract
 import android.util.Log
-import com.quangdm.contactapp.base.LoadingDialog.context
 import com.quangdm.contactapp.model.User
-import com.quangdm.contactapp.utils.Utils
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.text.FieldPosition
+
 
 class MainPresenter(private val context: Context, private val mainInterface: MainInterface) {
 
@@ -30,6 +27,7 @@ class MainPresenter(private val context: Context, private val mainInterface: Mai
         return listData
     }
 
+    @DelicateCoroutinesApi
     @SuppressLint("Range")
     fun readContact() {
         getFakeData()
@@ -66,11 +64,10 @@ class MainPresenter(private val context: Context, private val mainInterface: Mai
             mainInterface.getDataFromPhone(listData)
         }
     }
-
     fun addContactInToDatabase() {
         var count = 7
-        listData.add(User(count.toString(), "KienDA${count}", "123456", false))
         count++
+        listData.add(User(count.toString(), "KienDA${count}", "123456", false))
         Log.d(TAG, "addContactInToDatabase: ${listData.size}")
     }
 

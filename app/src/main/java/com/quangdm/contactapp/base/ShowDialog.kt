@@ -1,4 +1,5 @@
 package com.quangdm.contactapp.base
+
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
@@ -6,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.quangdm.contactapp.R
 import com.quangdm.contactapp.databinding.DialogBaseBinding
 
 
@@ -114,7 +116,7 @@ class ShowDialog( //add private constructor if necessary
                 binding.title = tit
                 binding.des = mess
                 binding.btnLeft.visibility = View.GONE
-                binding.btnRight.text = "ĐÓNG"
+                binding.btnRight.text = context.resources.getString(R.string.close)
                 binding.btnRight.setOnClickListener {
                     dialog.dismiss()
                 }

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
-import android.os.Build
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -12,6 +11,7 @@ import android.view.WindowManager
 
 class StatusBarUtil {
     companion object {
+        @Suppress("DEPRECATION")
         @JvmStatic
         fun statusTranSlucent(activity: Activity?) {
             if (activity == null) {
@@ -20,12 +20,12 @@ class StatusBarUtil {
             setWindowFlag(activity, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
             activity.window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            if (Build.VERSION.SDK_INT >= 21) {
-                setWindowFlag(activity, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
-                activity.window.statusBarColor = Color.TRANSPARENT
-            }
+
+            setWindowFlag(activity, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
+            activity.window.statusBarColor = Color.TRANSPARENT
         }
 
+        @Suppress("DEPRECATION")
         @JvmStatic
         fun transparentFull(activity: Activity?) {
             if (activity == null) {
@@ -44,14 +44,14 @@ class StatusBarUtil {
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             visibility = visibility or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
             window.decorView.systemUiVisibility = visibility
-            if (Build.VERSION.SDK_INT >= 21) {
-                var windowManager = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-                windowManager =
-                    windowManager or WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
-                setWindowFlag(activity, windowManager, false)
-                window.statusBarColor = Color.TRANSPARENT
-                window.navigationBarColor = Color.TRANSPARENT
-            }
+
+            var windowManager = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+            windowManager =
+                windowManager or WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+            setWindowFlag(activity, windowManager, false)
+            window.statusBarColor = Color.TRANSPARENT
+            window.navigationBarColor = Color.TRANSPARENT
+
         }
 
         @JvmStatic

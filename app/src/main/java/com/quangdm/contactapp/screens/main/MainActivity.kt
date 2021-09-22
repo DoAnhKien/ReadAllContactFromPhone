@@ -2,39 +2,32 @@ package com.quangdm.contactapp.screens.main
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 import com.quangdm.contactapp.R
 import com.quangdm.contactapp.base.*
 import com.quangdm.contactapp.databinding.ActivityMainBinding
-
 import com.quangdm.contactapp.model.User
-import com.quangdm.contactapp.screens.addedit.AddEditActivity
 import com.quangdm.contactapp.utils.Const
-import java.util.jar.Manifest
+import kotlinx.coroutines.DelicateCoroutinesApi
 
 class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, OnItemUserOnClick,
     MainInterface {
 
     private var userAdapter: UserAdapter? = null
     private var mainPresenter: MainPresenter? = null
-    private var listData: MutableList<User>? = null
     private lateinit var loading: LoadingDialog
     private lateinit var dialog: ShowDialog.Builder
 
     override fun initLayout(): Int = R.layout.activity_main
 
+    @DelicateCoroutinesApi
     override fun init() {
         mainPresenter = MainPresenter(this, this)
         checkContactPermission()
@@ -78,6 +71,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
         recyclerView.scheduleLayoutAnimation()
     }
 
+    @DelicateCoroutinesApi
     private fun checkContactPermission() {
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -95,7 +89,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
         }
     }
 
-
+    @DelicateCoroutinesApi
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -122,10 +116,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
     }
 
     override fun onClick(position: Int, user: User) {
-        user.userName = "mmmmmm"
-        mainPresenter?.editUserInDatabase(user, position)
-        userAdapter?.notifyItemChanged(position)
-        val intent = Intent(this, AddEditActivity::class.java)
+//        user.userName = "mmmmmm"
+//        mainPresenter?.editUserInDatabase(user, position)
+//        userAdapter?.notifyItemChanged(position)
+//        val intent = Intent(this, AddEditActivity::class.java)
 //        intent.apply {
 //            val bundle = Bundle()
 //            bundle.putParcelable("123", user)
@@ -157,9 +151,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), View.OnClickListener, 
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-    }
 
     override fun getDataFromPhone(mData: MutableList<User>) {
         runOnUiThread {

@@ -3,9 +3,8 @@ package com.quangdm.contactapp.utils
 import android.view.animation.DecelerateInterpolator
 
 import android.animation.ValueAnimator
-import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.view.View
-import com.quangdm.contactapp.model.User
+
 
 
 object Utils {

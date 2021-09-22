@@ -1,17 +1,13 @@
 package com.quangdm.contactapp.screens.addedit
-
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import com.quangdm.contactapp.R
 import com.quangdm.contactapp.base.BaseActivity
 import com.quangdm.contactapp.databinding.ActivityAddEditBinding
-import com.quangdm.contactapp.model.User
 
 class AddEditActivity : BaseActivity<ActivityAddEditBinding>(), View.OnClickListener,
     AddEdiInterface {
-
-    private var user: User? = null
+//
+//    private var user: User? = null
 
     override fun initLayout(): Int = R.layout.activity_add_edit
 
@@ -20,11 +16,11 @@ class AddEditActivity : BaseActivity<ActivityAddEditBinding>(), View.OnClickList
     }
 
     private fun initDataForActivity() {
-        val user = intent.getBundleExtra("1234")?.getParcelable<User>("123")
-        if (user != null) {
-            binding?.user = user
-            return
-        }
+//        val user = intent.getBundleExtra("1234")?.getParcelable<User>("123")
+//        if (user != null) {
+//            binding?.user = user
+//            return
+//        }
     }
 
     override fun setOnClickForViews() {

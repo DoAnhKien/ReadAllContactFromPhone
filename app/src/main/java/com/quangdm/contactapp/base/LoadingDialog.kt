@@ -13,9 +13,9 @@ import com.quangdm.contactapp.databinding.ProgressbarBinding
 
 @SuppressLint("StaticFieldLeak")
 object LoadingDialog {
-    var context: Context? = null
-    var dialog: Dialog? = null
-    fun getInstance(context: Context):LoadingDialog {
+    private var context: Context? = null
+    private var dialog: Dialog? = null
+    fun getInstance(context: Context): LoadingDialog {
         this.context = context
         return LoadingDialog
     }
@@ -27,8 +27,10 @@ object LoadingDialog {
             dialog?.apply {
                 setContentView(binding.root)
                 setCancelable(true)
-                window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT)
+                window?.setLayout(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
                 if (window != null) {
                     window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 }

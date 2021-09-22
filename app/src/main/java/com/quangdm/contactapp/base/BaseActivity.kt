@@ -3,6 +3,7 @@ package com.quangdm.contactapp.base
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -72,14 +73,16 @@ abstract class BaseActivity<T : ViewDataBinding?>(protected var binding: T? = nu
         return false
     }
 
+    @Suppress("DEPRECATION")
     private fun setupFullScreen() {
         val window = window ?: return
-        if (Build.VERSION.SDK_INT < 30) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
-            return
         }
 //        val controller = window.insetsController
 //        if (controller != null) {
